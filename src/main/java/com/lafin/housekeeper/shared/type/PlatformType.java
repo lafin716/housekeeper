@@ -3,7 +3,8 @@ package com.lafin.housekeeper.shared.type;
 public enum PlatformType {
     EMAIL("email"),
     FACEBOOK("facebook"),
-    GOOGLE("google");
+    GOOGLE("google"),
+    UNKNOWN("");
 
     private String code;
 
@@ -14,8 +15,12 @@ public enum PlatformType {
     public static PlatformType of(String code) {
         try {
             return PlatformType.valueOf(code);
-        } catch (IllegalArgumentException e) {
-            return null;
+        } catch (Exception e) {
+            return PlatformType.UNKNOWN;
         }
+    }
+
+    public boolean isUnknown() {
+        return this.code.equals("");
     }
 }

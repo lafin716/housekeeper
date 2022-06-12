@@ -29,8 +29,8 @@ public class CreateUserInput implements Input {
         if (Strings.isBlank(email)) throw new InvalidInputException("이메일은 필수입니다.");
         if (Strings.isBlank(password)) throw new InvalidInputException("비밀번호는 필수입니다.");
         if (Strings.isBlank(nickName)) throw new InvalidInputException("닉네임은 필수입니다.");
-        if (Objects.isNull(type)) throw new InvalidInputException("유저타입은 필수입니다.");
-        if (Objects.isNull(platform)) throw new InvalidInputException("플랫폼 타입은 필수입니다.");
+        if (Objects.isNull(type) || type.isUnknown()) throw new InvalidInputException("유저타입은 필수입니다.");
+        if (Objects.isNull(platform) || platform.isUnknown()) throw new InvalidInputException("플랫폼 타입은 필수입니다.");
 
         return true;
     }
