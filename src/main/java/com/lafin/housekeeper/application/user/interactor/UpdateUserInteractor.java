@@ -2,8 +2,8 @@ package com.lafin.housekeeper.application.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
 import com.lafin.housekeeper.domain.user.model.User;
-import com.lafin.housekeeper.domain.user.usecase.CreateUserUseCase;
-import com.lafin.housekeeper.domain.user.usecase.input.CreateUserInput;
+import com.lafin.housekeeper.domain.user.usecase.UpdateUserUseCase;
+import com.lafin.housekeeper.domain.user.usecase.input.UpdateUserInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.DefaultOutput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import lombok.RequiredArgsConstructor;
@@ -13,29 +13,26 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserInteractor implements CreateUserUseCase {
+public class UpdateUserInteractor implements UpdateUserUseCase {
 
     private final UserGateway userGateway;
 
     @Override
-    public DefaultOutput execute(CreateUserInput input) throws InvalidInputException {
+    public DefaultOutput execute(UpdateUserInput input) throws InvalidInputException {
         input.validate();
 
-        var user = User.builder()
-                    .email(input.getEmail())
-                    .password(input.getPassword())
-                    .nickName(input.getNickName())
-                    .type(input.getType())
-                    .platform(input.getPlatform())
-                    .build();
-        user.created();
-
-        var savedUser = userGateway.save(user);
-        if (!isSaved(savedUser)) {
-            return DefaultOutput.fail("회원가입이 실패하였습니다.");
+        var user = userGateway.findById(input.getId());
+        if (Objects.isNull(user)) {
+            return DefaultOutput.fail("회원 정보를 찾을 수 없습니다.");
         }
 
-        return DefaultOutput.ok("회원가입이 완료되었습니다.");
+        user.updateInMyPage(input.getNickName(), input.getPassword());
+        var savedUser = userGateway.save(user);
+        if (!isSaved(savedUser)) {
+            return DefaultOutput.fail("회원정보 수정이 실패하였습니다.");
+        }
+
+        return DefaultOutput.ok("회원 정보가 수정되었습니다.");
     }
 
     public boolean isSaved(User user) {

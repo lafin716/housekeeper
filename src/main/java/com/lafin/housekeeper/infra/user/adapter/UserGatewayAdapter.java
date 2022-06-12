@@ -17,6 +17,11 @@ public class UserGatewayAdapter implements UserGateway {
     private final UserRepository repository;
 
     @Override
+    public User findByEmail(String email) {
+        return null;
+    }
+
+    @Override
     public User findById(Long id) {
         var entity = repository.findById(id).orElse(null);
         return UserEntityConverter.to(entity);
