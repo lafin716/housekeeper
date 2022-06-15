@@ -1,6 +1,7 @@
 package com.lafin.housekeeper.presenter.api.user;
 
 import com.lafin.housekeeper.presenter.api.user.request.CreateUserRequest;
+import com.lafin.housekeeper.presenter.api.user.request.SignInRequest;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.ResponseModel;
 import com.lafin.housekeeper.shared.util.ResponseUtil;
@@ -21,5 +22,10 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ResponseModel> create(@RequestBody CreateUserRequest request) throws InvalidInputException {
         return ResponseUtil.json(userAdapter.create(request));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<ResponseModel> signIn(@RequestBody SignInRequest request) throws InvalidInputException {
+        return ResponseUtil.json(userAdapter.signIn(request));
     }
 }

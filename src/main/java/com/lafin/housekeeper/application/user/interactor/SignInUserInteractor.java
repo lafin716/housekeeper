@@ -27,10 +27,7 @@ public class SignInUserInteractor implements SignInUseCase {
 
         var user = userGateway.findByEmail(input.getEmail());
         if (Objects.isNull(user)) {
-            return SignInOutput.builder()
-                    .result(false)
-                    .message("회원 정보를 찾을 수 없습니다.")
-                    .build();
+            return SignInOutput.fail("회원 정보를 찾을 수 없습니다.");
         }
 
         int failCount = user.getFailedSignIn();

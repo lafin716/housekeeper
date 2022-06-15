@@ -7,6 +7,7 @@ import com.lafin.housekeeper.shared.type.UserType;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.Base64Utils;
 
 import java.util.Objects;
 
@@ -33,7 +34,13 @@ public class CreateUserInput implements Input {
         if (type.isUnknown()) throw new InvalidInputException("알 수 없는 유저타입입니다.");
         if (Objects.isNull(platform)) throw new InvalidInputException("플랫폼 타입은 필수입니다.");
         if (platform.isUnknown()) throw new InvalidInputException("알 수 없는 플랫폼 타입입니다.");
+        encryptPassword();
 
         return true;
+    }
+
+    private void encryptPassword() {
+        if (Strings.isBlank(this.password)) return;
+        this.password = Base64Utils.encodeToString(this.password.getBytes());
     }
 }
