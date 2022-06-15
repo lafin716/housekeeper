@@ -15,8 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
@@ -46,6 +45,27 @@ class CreateUserInteractorTest {
             var result = createUserInteractor.execute(input);
             System.out.println(result.getMessage());
             assertTrue(result.isResult());
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void 중복회원가입_방지() {
+        doReturn(expectNewUserModel()).when(userGateway).findByEmail(any());
+
+        var input = CreateUserInput.builder()
+                .email("lafin716@naver.com")
+                .nickName("우기")
+                .password("test")
+                .type(UserType.USER)
+                .platform(PlatformType.EMAIL)
+                .build();
+        try {
+            var result = createUserInteractor.execute(input);
+            System.out.println(result.getMessage());
+            assertFalse(result.isResult());
+            assertEquals(result.getMessage(), "이미 가입 된 이메일입니다.");
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }

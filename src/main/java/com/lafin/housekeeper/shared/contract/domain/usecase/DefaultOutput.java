@@ -28,7 +28,7 @@ public class DefaultOutput implements Output {
 
     public static DefaultOutput fail(String message) {
         return DefaultOutput.builder()
-                .result(true)
+                .result(false)
                 .message(message)
                 .build();
     }

@@ -6,10 +6,16 @@ import com.lafin.housekeeper.shared.contract.infra.convert.GatewayConverter;
 import com.lafin.housekeeper.shared.status.UserStatus;
 import com.lafin.housekeeper.shared.type.UserType;
 
+import java.util.Objects;
+
 public class UserEntityConverter implements GatewayConverter<UserEntity, User> {
 
     @Override
     public UserEntity fromDomain(User domain) {
+        if (Objects.isNull(domain)) {
+            return null;
+        }
+
         return UserEntity.builder()
                 .id(domain.getId())
                 .email(domain.getEmail())
@@ -24,6 +30,10 @@ public class UserEntityConverter implements GatewayConverter<UserEntity, User> {
 
     @Override
     public User toEntity(UserEntity entity) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
         return User.builder()
                 .id(entity.getId())
                 .email(entity.getEmail())

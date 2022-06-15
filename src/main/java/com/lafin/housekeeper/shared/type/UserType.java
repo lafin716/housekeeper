@@ -13,10 +13,16 @@ public enum UserType {
 
     public static UserType of(String code) {
         try {
-            return UserType.valueOf(code);
+            for (UserType type : UserType.values()) {
+                if (code.equalsIgnoreCase(type.code)) {
+                    return type;
+                }
+            }
         } catch (Exception e) {
             return UserType.UNKNOWN;
         }
+
+        return UserType.UNKNOWN;
     }
 
     public boolean isUnknown() {

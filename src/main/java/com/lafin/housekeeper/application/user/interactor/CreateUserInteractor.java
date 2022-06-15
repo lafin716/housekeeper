@@ -21,16 +21,21 @@ public class CreateUserInteractor implements CreateUserUseCase {
     public DefaultOutput execute(CreateUserInput input) throws InvalidInputException {
         input.validate();
 
-        var user = User.builder()
+        var user = userGateway.findByEmail(input.getEmail());
+        if (Objects.nonNull(user)) {
+            return DefaultOutput.fail("이미 가입 된 이메일입니다.");
+        }
+
+        var newUser = User.builder()
                     .email(input.getEmail())
                     .password(input.getPassword())
                     .nickName(input.getNickName())
                     .type(input.getType())
                     .platform(input.getPlatform())
                     .build();
-        user.created();
+        newUser.created();
 
-        var savedUser = userGateway.save(user);
+        var savedUser = userGateway.save(newUser);
         if (!isSaved(savedUser)) {
             return DefaultOutput.fail("회원가입이 실패하였습니다.");
         }

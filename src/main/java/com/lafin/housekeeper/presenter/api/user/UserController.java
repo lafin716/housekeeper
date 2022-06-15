@@ -7,6 +7,7 @@ import com.lafin.housekeeper.shared.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ public class UserController {
     private final UserAdapter userAdapter;
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseModel> create(CreateUserRequest request) throws InvalidInputException {
+    public ResponseEntity<ResponseModel> create(@RequestBody CreateUserRequest request) throws InvalidInputException {
         return ResponseUtil.json(userAdapter.create(request));
     }
 }

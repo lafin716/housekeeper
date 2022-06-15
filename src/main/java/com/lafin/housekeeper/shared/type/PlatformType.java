@@ -14,10 +14,16 @@ public enum PlatformType {
 
     public static PlatformType of(String code) {
         try {
-            return PlatformType.valueOf(code);
+            for (PlatformType type : PlatformType.values()) {
+                if (code.equalsIgnoreCase(type.code)) {
+                    return type;
+                }
+            }
         } catch (Exception e) {
             return PlatformType.UNKNOWN;
         }
+
+        return PlatformType.UNKNOWN;
     }
 
     public boolean isUnknown() {

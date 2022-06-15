@@ -15,9 +15,16 @@ public enum HouseType {
 
     public static HouseType of(String name) {
         try {
-            return HouseType.valueOf(name);
-        } catch (IllegalArgumentException e) {
+            for (HouseType type : HouseType.values()) {
+                if (name.equalsIgnoreCase(type.name)) {
+                    return type;
+                }
+            }
+        } catch (Exception e) {
             return HouseType.ETC;
         }
+
+        return HouseType.ETC;
     }
+
 }
