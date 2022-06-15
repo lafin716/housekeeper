@@ -1,4 +1,4 @@
-package com.lafin.housekeeper.application.user.interactor;
+package com.lafin.housekeeper.domain.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
 import com.lafin.housekeeper.domain.user.model.User;

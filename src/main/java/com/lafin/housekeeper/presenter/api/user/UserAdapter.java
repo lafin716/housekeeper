@@ -1,7 +1,7 @@
 package com.lafin.housekeeper.presenter.api.user;
 
-import com.lafin.housekeeper.application.user.interactor.CreateUserInteractor;
-import com.lafin.housekeeper.application.user.interactor.SignInUserInteractor;
+import com.lafin.housekeeper.domain.user.interactor.CreateUserInteractor;
+import com.lafin.housekeeper.domain.user.interactor.SignInUserInteractor;
 import com.lafin.housekeeper.domain.user.usecase.input.SignInInput;
 import com.lafin.housekeeper.presenter.api.user.request.CreateUserRequest;
 import com.lafin.housekeeper.presenter.api.user.request.SignInRequest;

@@ -1,6 +1,7 @@
 package com.lafin.housekeeper.application.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
+import com.lafin.housekeeper.domain.user.interactor.SignInUserInteractor;
 import com.lafin.housekeeper.domain.user.model.User;
 import com.lafin.housekeeper.domain.user.usecase.input.SignInInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
