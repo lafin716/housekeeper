@@ -8,6 +8,8 @@ import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputExceptio
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class CreateTokenInteractor implements CreateTokenUseCase {
@@ -18,9 +20,15 @@ public class CreateTokenInteractor implements CreateTokenUseCase {
     public CreateTokenOutput execute(CreateTokenInput input) throws InvalidInputException {
         input.validate();
 
+        var user = repository.findByEmailAndPassword(input.getEmail(), input.getPassword());
+        if (Objects.isNull(user)) {
+
+        }
 
 
-        return null;
+        return CreateTokenOutput.builder()
+                .result(true)
+                .build();
     }
 }
 

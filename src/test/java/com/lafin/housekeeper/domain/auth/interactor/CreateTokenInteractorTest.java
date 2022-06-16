@@ -26,7 +26,10 @@ class CreateTokenInteractorTest {
     @Test
     void 인증토큰_생성() throws InvalidInputException {
 
-        var input = CreateTokenInput.builder().build();
+        var input = CreateTokenInput.builder()
+                .email("lafin716@gmail.com")
+                .password("1234")
+                .build();
 
         var result = createTokenInteractor.execute(input);
 
