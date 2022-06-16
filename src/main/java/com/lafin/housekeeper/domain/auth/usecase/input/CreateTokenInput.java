@@ -5,14 +5,22 @@ import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputExceptio
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.logging.log4j.util.Strings;
 
 @Getter
 @Builder
 @ToString
 public class CreateTokenInput implements Input {
 
+    private String email;
+
+    private String password;
+
     @Override
     public boolean validate() throws InvalidInputException {
-        return false;
+        if (Strings.isBlank(email)) throw new InvalidInputException("이메일은 필수입니다.");
+        if (Strings.isBlank(password)) throw new InvalidInputException("비밀번호는 필수입니다.");
+
+        return true;
     }
 }
