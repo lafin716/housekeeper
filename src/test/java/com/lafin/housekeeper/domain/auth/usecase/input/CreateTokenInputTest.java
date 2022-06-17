@@ -1,5 +1,6 @@
 package com.lafin.housekeeper.domain.auth.usecase.input;
 
+import com.lafin.housekeeper.domain.user.usecase.input.CreateTokenInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

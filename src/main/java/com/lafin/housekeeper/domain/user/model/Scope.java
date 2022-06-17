@@ -1,4 +1,4 @@
-package com.lafin.housekeeper.domain.auth.model;
+package com.lafin.housekeeper.domain.user.model;
 
 import com.lafin.housekeeper.shared.type.ScopeType;
 import lombok.Builder;

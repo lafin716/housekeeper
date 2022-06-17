@@ -1,8 +1,10 @@
 package com.lafin.housekeeper.domain.auth.interactor;
 
-import com.lafin.housekeeper.domain.auth.gateway.AuthRepository;
-import com.lafin.housekeeper.domain.auth.usecase.input.CreateTokenInput;
+import com.lafin.housekeeper.domain.user.gateway.AuthGateway;
+import com.lafin.housekeeper.domain.user.interactor.CreateTokenInteractor;
+import com.lafin.housekeeper.domain.user.usecase.input.CreateTokenInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +23,7 @@ class CreateTokenInteractorTest {
     private CreateTokenInteractor createTokenInteractor;
 
     @Mock
-    private AuthRepository authRepository;
+    private AuthGateway authRepository;
 
     @Test
     void 인증토큰_생성() throws InvalidInputException {
@@ -35,5 +37,7 @@ class CreateTokenInteractorTest {
 
         assertNotNull(result);
         assertTrue(result.isResult());
+        assertTrue(Strings.isNotBlank(result.getAccessToken()));
+        assertTrue(Strings.isNotBlank(result.getRefreshToken()));
     }
 }
