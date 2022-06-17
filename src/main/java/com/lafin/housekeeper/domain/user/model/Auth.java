@@ -22,4 +22,6 @@ public class Auth implements Model {
     private List<Scope> scopes;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime expiredAt;
 }

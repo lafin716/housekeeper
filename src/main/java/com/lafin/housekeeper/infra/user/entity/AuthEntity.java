@@ -25,4 +25,6 @@ public class AuthEntity implements GatewayEntity {
     private String refreshToken;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime expiredAt;
 }

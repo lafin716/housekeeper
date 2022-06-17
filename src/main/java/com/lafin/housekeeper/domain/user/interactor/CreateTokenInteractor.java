@@ -17,6 +17,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CreateTokenInteractor implements CreateTokenUseCase {
 
+    private final long expireMinutes = 60L;
+
     private final AuthGateway authGateway;
 
     @Override
@@ -32,6 +34,7 @@ public class CreateTokenInteractor implements CreateTokenUseCase {
                     .accessToken(aes.encrypt(plainAccessToken))
                     .refreshToken(aes.encrypt(plainRefreshToken))
                     .createdAt(LocalDateTime.now())
+                    .expiredAt(LocalDateTime.now().plusMinutes(expireMinutes))
                     .build();
             var savedToken = authGateway.save(token);
             if (Objects.isNull(savedToken)) {
@@ -43,6 +46,7 @@ public class CreateTokenInteractor implements CreateTokenUseCase {
                     .accessToken(savedToken.getAccessToken())
                     .refreshToken(savedToken.getRefreshToken())
                     .createdAt(savedToken.getCreatedAt())
+                    .expiredAt(savedToken.getExpiredAt())
                     .build();
         } catch (Exception e) {
             return CreateTokenOutput.fail("토큰 생성 중 오류가 발생하였습니다.");
@@ -66,7 +70,7 @@ public class CreateTokenInteractor implements CreateTokenUseCase {
         builder.append("|");
         builder.append(email);
         builder.append("|");
-        builder.append(LocalDateTime.now().plusHours(1L));
+        builder.append(LocalDateTime.now().plusMinutes(expireMinutes));
 
         return builder.toString();
     }

@@ -20,6 +20,8 @@ public class CreateTokenOutput implements Output {
 
     private LocalDateTime createdAt;
 
+    private LocalDateTime expiredAt;
+
     public static CreateTokenOutput fail(String message) {
         return CreateTokenOutput.builder()
                 .result(false)
