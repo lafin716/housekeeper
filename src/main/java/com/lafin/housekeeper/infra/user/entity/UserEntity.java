@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
+@Table(name = "hk_user")
 @Getter
 @Setter
 @NoArgsConstructor

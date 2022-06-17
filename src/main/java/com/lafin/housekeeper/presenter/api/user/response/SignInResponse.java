@@ -1,6 +1,7 @@
 package com.lafin.housekeeper.presenter.api.user.response;
 
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.ResponseModel;
+import com.lafin.housekeeper.shared.type.UserType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -17,22 +18,12 @@ public class SignInResponse implements ResponseModel {
 
     private String message;
 
-    private User user;
+    private UserType type;
 
-    @Getter
-    @Builder
-    @ToString
-    public static class User {
+    private String accessToken;
 
-        private String email;
+    private String refreshToken;
 
-        private String nickName;
-
-        private String type;
-
-        private String status;
-
-        @DateTimeFormat(pattern = "YYYY-mm-dd HH:MM:ss")
-        private LocalDateTime created;
-    }
+    @DateTimeFormat(pattern = "YYYY-mm-dd HH:MM:ss")
+    private LocalDateTime createdAt;
 }

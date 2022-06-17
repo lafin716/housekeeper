@@ -1,6 +1,6 @@
 package com.lafin.housekeeper.infra.user.adapter;
 
-import com.lafin.housekeeper.domain.auth.gateway.AuthGateway;
+import com.lafin.housekeeper.domain.user.gateway.AuthGateway;
 import com.lafin.housekeeper.domain.user.model.Auth;
 import com.lafin.housekeeper.infra.user.entity.convert.AuthEntityConverter;
 import com.lafin.housekeeper.infra.user.repository.AuthRepository;
@@ -15,11 +15,6 @@ import java.util.stream.Collectors;
 public class AuthGatewayAdapter implements AuthGateway {
 
     private final AuthRepository repository;
-
-    @Override
-    public Auth findByEmailAndPassword(String email, String password) {
-        return AuthEntityConverter.to(repository.findByEmailAndPassword(email, password));
-    }
 
     @Override
     public Auth findById(Long id) {

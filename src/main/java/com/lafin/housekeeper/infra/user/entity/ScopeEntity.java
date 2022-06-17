@@ -5,8 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "scope")
+//@Entity
+//@Table(name = "scope")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,8 +15,8 @@ import javax.persistence.*;
 @ToString
 public class ScopeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private ScopeType type;

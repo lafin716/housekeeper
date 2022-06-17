@@ -16,7 +16,9 @@ public class AuthEntityConverter implements GatewayConverter<AuthEntity, Auth> {
 
         return AuthEntity.builder()
                 .id(domain.getId())
-
+                .accessToken(domain.getAccessToken())
+                .refreshToken(domain.getRefreshToken())
+                .createdAt(domain.getCreatedAt())
                 .build();
     }
 
@@ -28,6 +30,9 @@ public class AuthEntityConverter implements GatewayConverter<AuthEntity, Auth> {
 
         return Auth.builder()
                 .id(entity.getId())
+                .accessToken(entity.getAccessToken())
+                .refreshToken(entity.getRefreshToken())
+                .createdAt(entity.getCreatedAt())
                 .build();
     }
 
