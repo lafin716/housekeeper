@@ -17,6 +17,18 @@ public class AuthGatewayAdapter implements AuthGateway {
     private final AuthRepository repository;
 
     @Override
+    public Auth findByAccessToken(String accessToken) {
+        var entity = repository.findByAccessToken(accessToken);
+        return AuthEntityConverter.to(entity);
+    }
+
+    @Override
+    public Auth findByRefreshToken(String refreshToken) {
+        var entity = repository.findByRefreshToken(refreshToken);
+        return AuthEntityConverter.to(entity);
+    }
+
+    @Override
     public Auth findById(Long id) {
         return AuthEntityConverter.to(repository.findById(id).orElse(null));
     }

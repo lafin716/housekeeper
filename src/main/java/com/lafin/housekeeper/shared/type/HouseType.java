@@ -1,22 +1,25 @@
 package com.lafin.housekeeper.shared.type;
 
 public enum HouseType {
-    APARTMENT("아파트"),
-    VILLA("빌라"),
-    MALL("상가"),
-    STORAGE("창고"),
-    ETC("기타");
-    
+    APARTMENT("apartment", "아파트"),
+    VILLA("villa", "빌라"),
+    MALL("mall", "상가"),
+    STORAGE("storage", "창고"),
+    ETC("etc", "기타");
+
+    private String code;
+
     private String name;
     
-    HouseType(String name) {
+    HouseType(String code, String name) {
+        this.code = code;
         this.name = name;
     }
 
-    public static HouseType of(String name) {
+    public static HouseType of(String code) {
         try {
             for (HouseType type : HouseType.values()) {
-                if (name.equalsIgnoreCase(type.name)) {
+                if (code.equalsIgnoreCase(type.code)) {
                     return type;
                 }
             }

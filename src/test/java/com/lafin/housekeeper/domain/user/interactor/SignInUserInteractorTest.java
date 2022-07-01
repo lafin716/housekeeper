@@ -1,8 +1,8 @@
 package com.lafin.housekeeper.domain.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
-import com.lafin.housekeeper.domain.user.interactor.SignInUserInteractor;
 import com.lafin.housekeeper.domain.user.model.User;
+import com.lafin.housekeeper.domain.user.usecase.SignInUseCase;
 import com.lafin.housekeeper.domain.user.usecase.input.SignInInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import com.lafin.housekeeper.shared.status.UserStatus;
@@ -29,7 +29,7 @@ class SignInUserInteractorTest {
     private String email = "lafin716@gmail.com";
 
     @InjectMocks
-    private SignInUserInteractor signInUserInteractor;
+    private SignInUseCase signInUserInteractor;
 
     @Mock
     private UserGateway userGateway;

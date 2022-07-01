@@ -1,8 +1,8 @@
 package com.lafin.housekeeper.domain.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
-import com.lafin.housekeeper.domain.user.interactor.CreateUserInteractor;
 import com.lafin.housekeeper.domain.user.model.User;
+import com.lafin.housekeeper.domain.user.usecase.CreateUserUseCase;
 import com.lafin.housekeeper.domain.user.usecase.input.CreateUserInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import com.lafin.housekeeper.shared.type.PlatformType;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.doReturn;
 class CreateUserInteractorTest {
 
     @InjectMocks
-    private CreateUserInteractor createUserInteractor;
+    private CreateUserUseCase createUserInteractor;
 
     @Mock
     private UserGateway userGateway;

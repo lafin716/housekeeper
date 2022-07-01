@@ -1,6 +1,8 @@
 package com.lafin.housekeeper.infra.user.entity;
 
 import com.lafin.housekeeper.shared.contract.infra.GatewayEntity;
+import com.lafin.housekeeper.shared.status.UserStatus;
+import com.lafin.housekeeper.shared.type.UserType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,9 +28,11 @@ public class UserEntity implements GatewayEntity {
 
     private String password;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private UserType type;
 
     private LocalDateTime createdAt;
 

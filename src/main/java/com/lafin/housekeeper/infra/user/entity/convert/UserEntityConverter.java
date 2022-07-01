@@ -21,8 +21,8 @@ public class UserEntityConverter implements GatewayConverter<UserEntity, User> {
                 .email(domain.getEmail())
                 .password(domain.getPassword())
                 .nickname(domain.getNickName())
-                .type(domain.getType().toString())
-                .status(domain.getStatus().toString())
+                .type(domain.getType())
+                .status(domain.getStatus())
                 .createdAt(domain.getCreatedAt())
                 .updatedAt(domain.getUpdatedAt())
                 .build();
@@ -39,8 +39,8 @@ public class UserEntityConverter implements GatewayConverter<UserEntity, User> {
                 .email(entity.getEmail())
                 .password(entity.getPassword())
                 .nickName(entity.getNickname())
-                .type(UserType.of(entity.getType()))
-                .status(UserStatus.valueOf(entity.getStatus()))
+                .type(entity.getType())
+                .status(entity.getStatus())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .build();

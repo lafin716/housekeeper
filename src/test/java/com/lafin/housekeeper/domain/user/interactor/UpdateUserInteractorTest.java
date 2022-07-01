@@ -1,8 +1,8 @@
 package com.lafin.housekeeper.domain.user.interactor;
 
 import com.lafin.housekeeper.domain.user.gateway.UserGateway;
-import com.lafin.housekeeper.domain.user.interactor.UpdateUserInteractor;
 import com.lafin.housekeeper.domain.user.model.User;
+import com.lafin.housekeeper.domain.user.usecase.UpdateUserUseCase;
 import com.lafin.housekeeper.domain.user.usecase.input.UpdateUserInput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.doReturn;
 class UpdateUserInteractorTest {
 
     @InjectMocks
-    private UpdateUserInteractor updateUserInteractor;
+    private UpdateUserUseCase updateUserInteractor;
 
     @Mock
     private UserGateway userGateway;

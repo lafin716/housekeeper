@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuthRepository extends JpaRepository<AuthEntity, Long> {
+
+    AuthEntity findByAccessToken(String accessToken);
+    AuthEntity findByRefreshToken(String refreshToken);
 }

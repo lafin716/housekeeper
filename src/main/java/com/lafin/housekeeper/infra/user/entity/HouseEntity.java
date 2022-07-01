@@ -21,8 +21,11 @@ public class HouseEntity implements GatewayEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
+
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private HouseType type;
 
     private LocalDateTime createdAt;

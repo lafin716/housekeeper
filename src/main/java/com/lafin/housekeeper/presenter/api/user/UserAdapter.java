@@ -1,8 +1,8 @@
 package com.lafin.housekeeper.presenter.api.user;
 
-import com.lafin.housekeeper.domain.user.interactor.CreateTokenInteractor;
-import com.lafin.housekeeper.domain.user.interactor.CreateUserInteractor;
-import com.lafin.housekeeper.domain.user.interactor.SignInUserInteractor;
+import com.lafin.housekeeper.domain.user.usecase.CreateTokenUseCase;
+import com.lafin.housekeeper.domain.user.usecase.CreateUserUseCase;
+import com.lafin.housekeeper.domain.user.usecase.SignInUseCase;
 import com.lafin.housekeeper.domain.user.usecase.input.CreateTokenInput;
 import com.lafin.housekeeper.domain.user.usecase.input.SignInInput;
 import com.lafin.housekeeper.presenter.api.user.request.CreateUserRequest;
@@ -19,21 +19,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserAdapter {
 
-    private final CreateUserInteractor createUserInteractor;
+    private final CreateUserUseCase createUserUseCase;
 
-    private final SignInUserInteractor signInUserInteractor;
+    private final SignInUseCase signInUseCase;
 
-    private final CreateTokenInteractor createTokenInteractor;
+    private final CreateTokenUseCase createTokenUseCase;
 
     public CreateUserResponse create(CreateUserRequest request) throws InvalidInputException {
         var input = CreateUserRequestConverter.to(request);
-        var output = createUserInteractor.execute(input);
+        var output = createUserUseCase.execute(input);
 
         return CreateUserResponseConverter.from(output);
     }
 
     public SignInResponse signIn(SignInRequest request) throws InvalidInputException {
-        var signInResult = signInUserInteractor.execute(SignInInput.builder()
+        var signInResult = signInUseCase.execute(SignInInput.builder()
                         .email(request.getEmail())
                         .password(request.getPassword())
                         .build());
@@ -44,7 +44,7 @@ public class UserAdapter {
                     .build();
         }
 
-        var tokenResult = createTokenInteractor.execute(CreateTokenInput.builder()
+        var tokenResult = createTokenUseCase.execute(CreateTokenInput.builder()
                         .id(signInResult.getUser().getId())
                         .email(signInResult.getUser().getEmail())
                         .build());
