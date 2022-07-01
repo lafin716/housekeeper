@@ -1,17 +1,19 @@
 package com.lafin.housekeeper.shared.type;
 
 public enum Unit {
-    EA("개"),
-    LITER("L"),
-    MILLILITER("ml"),
-    CENTIMETER("cm"),
-    METER("m"),
-    PERCENT("%");
+    EA("ea", "개"),
+    LITER("l", "L"),
+    MILLILITER("ml", "ml"),
+    CENTIMETER("cm", "cm"),
+    METER("m", "m"),
+    PERCENT("percent", "%");
 
     private String code;
+    private String label;
 
-    Unit(String code) {
+    Unit(String code, String label) {
         this.code = code;
+        this.label = label;
     }
 
     public static Unit of(String code) {
@@ -30,5 +32,9 @@ public enum Unit {
 
     public String getCode() {
         return this.code;
+    }
+
+    public String getLabel() {
+        return this.label;
     }
 }

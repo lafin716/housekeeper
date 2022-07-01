@@ -39,7 +39,7 @@ public class CreateRoomUseCase implements UseCase<CreateRoomInput, CreateRoomOut
                 return CreateRoomOutput.fail("방이 등록되지 못했습니다.");
             }
 
-            return CreateRoomOutput.ok("", null);
+            return CreateRoomOutput.ok("방이 등록되었습니다.");
         } catch (Exception e) {
             return CreateRoomOutput.fail(e.getMessage());
         }
