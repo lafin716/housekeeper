@@ -23,6 +23,12 @@ public class RoomGatewayAdapter implements RoomGateway {
     }
 
     @Override
+    public Room findByUserIdAndRoomId(Long userId, Long roomId) {
+        var room = repository.findTopByUserIdAndId(userId, roomId);
+        return RoomEntityConverter.to(room);
+    }
+
+    @Override
     public Room findById(Long id) {
         var entity = repository.findById(id);
         return RoomEntityConverter.to(entity.orElse(null));

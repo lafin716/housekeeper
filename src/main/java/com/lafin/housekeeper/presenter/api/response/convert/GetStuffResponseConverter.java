@@ -28,6 +28,8 @@ public class GetStuffResponseConverter implements ResponseConverter<GetStuffResp
     private static GetStuffResponse.Stuff toStuff(Stuff stuff) {
         return GetStuffResponse.Stuff.builder()
                 .id(stuff.getId())
+                .userId(stuff.getUserId())
+                .roomId(stuff.getRoomId())
                 .name(stuff.getName())
                 .status(stuff.getStatus())
                 .amount(stuff.getAmount())

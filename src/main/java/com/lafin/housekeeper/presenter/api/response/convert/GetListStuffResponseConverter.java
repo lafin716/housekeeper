@@ -29,6 +29,8 @@ public class GetListStuffResponseConverter implements ResponseConverter<GetListS
     private static GetListStuffResponse.Stuff toStuff(Stuff stuff) {
         return GetListStuffResponse.Stuff.builder()
                 .id(stuff.getId())
+                .userId(stuff.getUserId())
+                .roomId(stuff.getRoomId())
                 .name(stuff.getName())
                 .status(stuff.getStatus())
                 .amount(stuff.getAmount())

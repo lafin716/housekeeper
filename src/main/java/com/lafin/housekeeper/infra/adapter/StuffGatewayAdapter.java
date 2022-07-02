@@ -25,8 +25,9 @@ public class StuffGatewayAdapter implements StuffGateway {
     }
 
     @Override
-    public Stuff findByUserId(Long userId, Long stuffId) {
-        return null;
+    public Stuff findByUserIdAndStuffId(Long userId, Long stuffId) {
+        var stuff = repository.findTopByUserIdAndId(userId, stuffId);
+        return StuffEntityConverter.to(stuff);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class Stuff implements Model {
 
     public void use(float amount) {
         this.amount -= amount;
-        if (amount < 0f) {
+        if (this.amount <= 0f) {
             this.amount = 0;
             this.status = StuffStatus.EMPTY;
         }

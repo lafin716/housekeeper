@@ -7,5 +7,5 @@ public interface StuffGateway extends Repository<Stuff, Long> {
 
     boolean isDuplicatedStuff(Long userId, Long roomId, String name);
 
-    Stuff findByUserId(Long stuffId, Long userId);
+    Stuff findByUserIdAndStuffId(Long userId, Long stuffId);
 }

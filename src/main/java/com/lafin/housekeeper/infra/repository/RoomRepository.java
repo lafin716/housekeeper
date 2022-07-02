@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
 
     RoomEntity findTopByUserIdAndHouseIdAndName(Long userId, Long houseId, String name);
+    RoomEntity findTopByUserIdAndId(Long userId, Long roomId);
 }

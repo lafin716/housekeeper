@@ -21,13 +21,17 @@ public class SpendStuffUseCase implements UseCase<SpendStuffInput, GetStuffOutpu
     public GetStuffOutput execute(SpendStuffInput input) throws InvalidInputException {
         input.validate();
 
-        var stuff = gateway.findByUserId(input.getStuffId(), input.getUserId());
+        var stuff = gateway.findByUserIdAndStuffId(input.getUserId(), input.getStuffId());
         if (Objects.isNull(stuff)) {
             return GetStuffOutput.fail("물건이 없습니다.");
         }
 
+        if (stuff.getStatus() == StuffStatus.EMPTY) {
+            return GetStuffOutput.fail("물건 수량이 부족합니다.");
+        }
+
         if (stuff.getStatus() != StuffStatus.USING) {
-            return GetStuffOutput.fail("사용 가능한 물건이 없습니다.");
+            return GetStuffOutput.fail("사용 가능한 물건이 아닙니다.");
         }
 
         stuff.use(input.getUseAmount());
