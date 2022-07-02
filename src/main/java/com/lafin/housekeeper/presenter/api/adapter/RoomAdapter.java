@@ -19,8 +19,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RoomAdapter {
 
-    private final VerifyTokenUseCase verifyTokenUseCase;
-
     private final GetListRoomUseCase getListRoomUseCase;
 
     private final CreateRoomUseCase createRoomUseCase;
@@ -45,16 +43,5 @@ public class RoomAdapter {
         }
 
         return CreateRoomResponse.ok(addResult.getMessage());
-    }
-
-    public boolean verify(String accessToken) throws InvalidInputException {
-        var verifyResult = verifyTokenUseCase.execute(VerifyTokenInput.builder()
-                .accessToken(accessToken)
-                .build());
-        if (!verifyResult.isResult()) {
-            throw new InvalidInputException(verifyResult.getMessage());
-        }
-
-        return false;
     }
 }

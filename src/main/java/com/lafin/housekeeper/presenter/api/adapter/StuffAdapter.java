@@ -25,8 +25,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StuffAdapter {
-
-    private final VerifyTokenUseCase verifyTokenUseCase;
     private final CreateStuffUseCase createStuffUseCase;
     private final GetListStuffUseCase getListStuffUseCase;
     private final SpendStuffUseCase spendStuffUseCase;
@@ -69,16 +67,5 @@ public class StuffAdapter {
                 .build());
 
         return GetStuffResponseConverter.from(stuff);
-    }
-
-    public boolean verify(String accessToken) throws InvalidInputException {
-        var verifyResult = verifyTokenUseCase.execute(VerifyTokenInput.builder()
-                .accessToken(accessToken)
-                .build());
-        if (!verifyResult.isResult()) {
-            throw new InvalidInputException(verifyResult.getMessage());
-        }
-
-        return false;
     }
 }

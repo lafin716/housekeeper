@@ -20,8 +20,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class HouseAdapter {
 
-    private final VerifyTokenUseCase verifyTokenUseCase;
-
     private final GetListHouseUseCase getListHouseUseCase;
 
     private final CreateHouseUseCase createHouseUseCase;
@@ -46,16 +44,5 @@ public class HouseAdapter {
         }
 
         return CreateHouseResponse.ok(addResult.getMessage());
-    }
-
-    public boolean verify(String accessToken) throws InvalidInputException {
-        var verifyResult = verifyTokenUseCase.execute(VerifyTokenInput.builder()
-                .accessToken(accessToken)
-                .build());
-        if (!verifyResult.isResult()) {
-            throw new InvalidInputException(verifyResult.getMessage());
-        }
-
-        return false;
     }
 }

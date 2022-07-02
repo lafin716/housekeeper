@@ -1,5 +1,6 @@
 package com.lafin.housekeeper.domain.user.usecase.output;
 
+import com.lafin.housekeeper.domain.user.model.User;
 import com.lafin.housekeeper.shared.contract.domain.usecase.Output;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,10 +13,13 @@ public class VerifyTokenOutput implements Output {
 
     private String message;
 
-    public static VerifyTokenOutput ok(String message) {
+    private User user;
+
+    public static VerifyTokenOutput ok(String message, User user) {
         return VerifyTokenOutput.builder()
                 .result(true)
                 .message(message)
+                .user(user)
                 .build();
     }
 

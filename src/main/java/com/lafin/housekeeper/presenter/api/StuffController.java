@@ -1,6 +1,7 @@
 package com.lafin.housekeeper.presenter.api;
 
 import com.lafin.housekeeper.presenter.api.adapter.StuffAdapter;
+import com.lafin.housekeeper.presenter.api.adapter.UserAdapter;
 import com.lafin.housekeeper.presenter.api.request.CreateStuffRequest;
 import com.lafin.housekeeper.presenter.api.request.SpendStuffRequest;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/stuff")
 public class StuffController {
 
+    private final UserAdapter userAdapter;
+
     private final StuffAdapter adapter;
 
     @GetMapping("/list/{page}")
     public ResponseEntity<ResponseModel> list(@PathVariable int page,
                                               @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
-        adapter.verify(accessToken);
+        userAdapter.verify(accessToken);
         var paging = Paging.builder()
                 .page(page)
                 .build();
@@ -32,7 +35,8 @@ public class StuffController {
     public ResponseEntity<ResponseModel> spend(@PathVariable Long stuffId,
                                                @RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
                                                @RequestBody SpendStuffRequest request) throws InvalidInputException {
-        adapter.verify(accessToken);
+        var userId = userAdapter.verify(accessToken);
+        request.setUserId(userId);
         request.setStuffId(stuffId);
         return ResponseUtil.json(adapter.spendStuff(request));
     }
@@ -40,7 +44,8 @@ public class StuffController {
     @PostMapping("/add")
     public ResponseEntity<ResponseModel> add(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
                                              @RequestBody CreateStuffRequest request) throws InvalidInputException {
-        adapter.verify(accessToken);
+        var userId = userAdapter.verify(accessToken);
+        request.setUserId(userId);
         return ResponseUtil.json(adapter.addStuff(request));
     }
 }

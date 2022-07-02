@@ -1,6 +1,7 @@
 package com.lafin.housekeeper.presenter.api;
 
 import com.lafin.housekeeper.presenter.api.adapter.HouseAdapter;
+import com.lafin.housekeeper.presenter.api.adapter.UserAdapter;
 import com.lafin.housekeeper.presenter.api.request.CreateHouseRequest;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.Paging;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/house")
 public class HouseController {
 
+    private final UserAdapter userAdapter;
+
     private final HouseAdapter houseAdapter;
 
     @GetMapping("/list/{page}")
     public ResponseEntity<ResponseModel> list(@PathVariable int page,
                                               @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
-        houseAdapter.verify(accessToken);
+        userAdapter.verify(accessToken);
         var paging = Paging.builder()
                 .page(page)
                 .build();
@@ -30,7 +33,8 @@ public class HouseController {
     @PostMapping("/add")
     public ResponseEntity<ResponseModel> add(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
                                              @RequestBody CreateHouseRequest request) throws InvalidInputException {
-        houseAdapter.verify(accessToken);
+        var userId = userAdapter.verify(accessToken);
+        request.setUserId(userId);
         return ResponseUtil.json(houseAdapter.addHouse(request));
     }
 }

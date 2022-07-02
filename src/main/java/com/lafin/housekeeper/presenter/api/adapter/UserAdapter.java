@@ -3,8 +3,10 @@ package com.lafin.housekeeper.presenter.api.adapter;
 import com.lafin.housekeeper.domain.user.usecase.CreateTokenUseCase;
 import com.lafin.housekeeper.domain.user.usecase.CreateUserUseCase;
 import com.lafin.housekeeper.domain.user.usecase.SignInUseCase;
+import com.lafin.housekeeper.domain.user.usecase.VerifyTokenUseCase;
 import com.lafin.housekeeper.domain.user.usecase.input.CreateTokenInput;
 import com.lafin.housekeeper.domain.user.usecase.input.SignInInput;
+import com.lafin.housekeeper.domain.user.usecase.input.VerifyTokenInput;
 import com.lafin.housekeeper.presenter.api.request.CreateUserRequest;
 import com.lafin.housekeeper.presenter.api.request.SignInRequest;
 import com.lafin.housekeeper.presenter.api.request.convert.CreateUserRequestConverter;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserAdapter {
+
+    private final VerifyTokenUseCase verifyTokenUseCase;
 
     private final CreateUserUseCase createUserUseCase;
 
@@ -63,5 +67,16 @@ public class UserAdapter {
                 .refreshToken(tokenResult.getRefreshToken())
                 .createdAt(tokenResult.getCreatedAt())
                 .build();
+    }
+
+    public Long verify(String accessToken) throws InvalidInputException {
+        var verifyResult = verifyTokenUseCase.execute(VerifyTokenInput.builder()
+                .accessToken(accessToken)
+                .build());
+        if (!verifyResult.isResult()) {
+            throw new InvalidInputException(verifyResult.getMessage());
+        }
+
+        return verifyResult.getUser().getId();
     }
 }
