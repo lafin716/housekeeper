@@ -3,17 +3,17 @@ package com.lafin.housekeeper.presenter.api.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.ResponseModel;
 import com.lafin.housekeeper.shared.status.RoomStatus;
+import com.lafin.housekeeper.shared.type.HouseType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Builder
 @ToString
-public class GetListRoomResponse implements ResponseModel {
+public class GetRoomResponse implements ResponseModel {
 
     private boolean result;
 
@@ -21,7 +21,7 @@ public class GetListRoomResponse implements ResponseModel {
     private String message;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<Room> rooms;
+    private Room room;
 
     @Getter
     @Builder
@@ -41,5 +41,19 @@ public class GetListRoomResponse implements ResponseModel {
         private LocalDateTime createdAt;
 
         private LocalDateTime updatedAt;
+    }
+
+    public static GetRoomResponse ok(Room room) {
+        return GetRoomResponse.builder()
+                .result(true)
+                .room(room)
+                .build();
+    }
+
+    public static GetRoomResponse fail(String message) {
+        return GetRoomResponse.builder()
+                .result(true)
+                .message(message)
+                .build();
     }
 }

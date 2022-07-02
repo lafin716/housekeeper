@@ -5,8 +5,10 @@ import com.lafin.housekeeper.shared.status.StuffStatus;
 import com.lafin.housekeeper.shared.type.Unit;
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.logging.log4j.util.Strings;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Builder
@@ -38,10 +40,22 @@ public class Stuff implements Model {
 
     public void add(float amount) {
         this.amount += amount;
-        if (amount > 0f) {
+        if (this.amount > 0f) {
             this.status = StuffStatus.USING;
         }
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateStuff(String name, Unit unit) {
+        if (Strings.isNotBlank(name) && !this.name.equals(name)) {
+            this.name = name;
+            this.updatedAt = LocalDateTime.now();
+        }
+
+        if (Objects.nonNull(unit) && this.unit != unit) {
+            this.unit = unit;
+            this.updatedAt = LocalDateTime.now();
+        }
     }
 
     public void use(float amount) {

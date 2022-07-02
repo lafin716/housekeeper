@@ -20,7 +20,6 @@ public class GetStuffOutput implements Output {
     public static GetStuffOutput ok(Stuff stuff) {
         return GetStuffOutput.builder()
                 .result(true)
-                .message("")
                 .stuff(stuff)
                 .build();
     }

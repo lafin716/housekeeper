@@ -2,7 +2,9 @@ package com.lafin.housekeeper.domain.stuff.usecase;
 
 import com.lafin.housekeeper.domain.stuff.gateway.StuffGateway;
 import com.lafin.housekeeper.domain.stuff.usecase.input.GetListStuffInput;
+import com.lafin.housekeeper.domain.stuff.usecase.input.GetStuffInput;
 import com.lafin.housekeeper.domain.stuff.usecase.output.GetListStuffOutput;
+import com.lafin.housekeeper.domain.stuff.usecase.output.GetStuffOutput;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
 import com.lafin.housekeeper.shared.contract.domain.usecase.UseCase;
 import lombok.RequiredArgsConstructor;
@@ -10,19 +12,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GetListStuffUseCase implements UseCase<GetListStuffInput, GetListStuffOutput> {
+public class GetStuffUseCase implements UseCase<GetStuffInput, GetStuffOutput> {
 
     private final StuffGateway gateway;
 
     @Override
-    public GetListStuffOutput execute(GetListStuffInput input) throws InvalidInputException {
+    public GetStuffOutput execute(GetStuffInput input) throws InvalidInputException {
         input.validate();
 
         try {
-            var stuffs = gateway.findAllByUserId(input.getUserId(), input.getPaging());
-            return GetListStuffOutput.ok(stuffs);
+            var stuff = gateway.findByUserIdAndStuffId(input.getUserId(), input.getStuffId());
+            return GetStuffOutput.ok(stuff);
         } catch (Exception e) {
-            return GetListStuffOutput.fail(e.getMessage());
+            return GetStuffOutput.fail(e.getMessage());
         }
     }
 }

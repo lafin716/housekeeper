@@ -29,6 +29,7 @@ public class GetListHouseResponseConverter implements ResponseConverter<GetListH
     private static GetListHouseResponse.House toHouse(House house) {
         return GetListHouseResponse.House.builder()
                 .id(house.getId())
+                .userId(house.getUserId())
                 .name(house.getName())
                 .type(house.getType())
                 .createdAt(house.getCreatedAt())

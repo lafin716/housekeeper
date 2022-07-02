@@ -34,6 +34,11 @@ public class House implements Model {
         this.status = HouseStatus.ACTIVE;
     }
 
+    public void updateName(String name) {
+        this.name = name;
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public void deleted() {
         this.updatedAt = LocalDateTime.now();
         this.status = HouseStatus.DELETED;

@@ -1,5 +1,6 @@
 package com.lafin.housekeeper.presenter.api.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.ResponseModel;
 import com.lafin.housekeeper.shared.status.RoomStatus;
 import com.lafin.housekeeper.shared.status.StuffStatus;
@@ -17,8 +18,10 @@ public class GetListStuffResponse implements ResponseModel {
 
     private boolean result;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String message;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Stuff> stuffs;
 
     @Getter

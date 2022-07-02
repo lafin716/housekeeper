@@ -19,7 +19,7 @@ public class GetListRoomUseCase implements UseCase<GetListRoomInput, GetListRoom
         input.validate();
 
         try {
-            var rooms = gateway.findAll();
+            var rooms = gateway.findAllByUserId(input.getUserId(), input.getPaging());
             return GetListRoomOutput.builder()
                     .result(true)
                     .rooms(rooms)

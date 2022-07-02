@@ -19,7 +19,7 @@ public class GetListHouseUseCase implements UseCase<GetListHouseInput, GetListHo
         input.validate();
 
         try {
-            var houses = houseGateway.findAll();
+            var houses = houseGateway.findAllByUserId(input.getUserId(), input.getPaging());
             return GetListHouseOutput.builder()
                     .result(true)
                     .houses(houses)

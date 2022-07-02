@@ -2,24 +2,17 @@ package com.lafin.housekeeper.presenter.api.adapter;
 
 import com.lafin.housekeeper.domain.room.usecase.GetRoomUseCase;
 import com.lafin.housekeeper.domain.room.usecase.input.GetRoomInput;
-import com.lafin.housekeeper.domain.stuff.usecase.CreateStuffUseCase;
-import com.lafin.housekeeper.domain.stuff.usecase.GetListStuffUseCase;
-import com.lafin.housekeeper.domain.stuff.usecase.SpendStuffUseCase;
-import com.lafin.housekeeper.domain.stuff.usecase.input.CreateStuffInput;
-import com.lafin.housekeeper.domain.stuff.usecase.input.GetListStuffInput;
-import com.lafin.housekeeper.domain.stuff.usecase.input.SpendStuffInput;
-import com.lafin.housekeeper.domain.user.usecase.VerifyTokenUseCase;
-import com.lafin.housekeeper.domain.user.usecase.input.VerifyTokenInput;
-import com.lafin.housekeeper.presenter.api.request.CreateRoomRequest;
-import com.lafin.housekeeper.presenter.api.request.CreateStuffRequest;
-import com.lafin.housekeeper.presenter.api.request.SpendStuffRequest;
+import com.lafin.housekeeper.domain.stuff.usecase.*;
+import com.lafin.housekeeper.domain.stuff.usecase.input.*;
+import com.lafin.housekeeper.presenter.api.request.*;
 import com.lafin.housekeeper.presenter.api.response.CreateRoomResponse;
 import com.lafin.housekeeper.presenter.api.response.GetListStuffResponse;
 import com.lafin.housekeeper.presenter.api.response.GetStuffResponse;
 import com.lafin.housekeeper.presenter.api.response.convert.GetListStuffResponseConverter;
 import com.lafin.housekeeper.presenter.api.response.convert.GetStuffResponseConverter;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
-import com.lafin.housekeeper.shared.contract.presenter.viewmodel.Paging;
+import com.lafin.housekeeper.shared.contract.presenter.viewmodel.DefaultResponse;
+import com.lafin.housekeeper.shared.contract.common.Paging;
 import com.lafin.housekeeper.shared.type.Unit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -30,7 +23,11 @@ public class StuffAdapter {
     private final GetRoomUseCase getRoomUseCase;
     private final CreateStuffUseCase createStuffUseCase;
     private final GetListStuffUseCase getListStuffUseCase;
+    private final GetStuffUseCase getStuffUseCase;
     private final SpendStuffUseCase spendStuffUseCase;
+    private final FillStuffUseCase fillStuffUseCase;
+    private final UpdateStuffUseCase updateStuffUseCase;
+    private final DeleteStuffUseCase deleteStuffUseCase;
 
     public CreateRoomResponse addStuff(CreateStuffRequest request) throws InvalidInputException {
         var room = getRoomUseCase.execute(GetRoomInput.builder()
@@ -55,11 +52,11 @@ public class StuffAdapter {
         return CreateRoomResponse.ok(addResult.getMessage());
     }
 
-    public GetListStuffResponse getStuffs(Paging paging) throws InvalidInputException {
+    public GetListStuffResponse getStuffs(Long userId, Paging paging) throws InvalidInputException {
         var stuffs = getListStuffUseCase.execute(GetListStuffInput.builder()
-                        .page(paging.getPage())
-                        .block(paging.getBlock())
-                .build());
+                        .userId(userId)
+                        .paging(paging)
+                        .build());
         if (!stuffs.isResult()) {
             return GetListStuffResponse.builder()
                     .result(false)
@@ -70,6 +67,14 @@ public class StuffAdapter {
         return GetListStuffResponseConverter.from(stuffs);
     }
 
+    public GetStuffResponse getStuff(Long userId, Long stuffId) throws InvalidInputException {
+        var stuff = getStuffUseCase.execute(GetStuffInput.builder()
+                        .userId(userId)
+                        .stuffId(stuffId)
+                        .build());
+        return GetStuffResponseConverter.from(stuff);
+    }
+
     public GetStuffResponse spendStuff(SpendStuffRequest request) throws InvalidInputException {
         var stuff = spendStuffUseCase.execute(SpendStuffInput.builder()
                         .userId(request.getUserId())
@@ -78,5 +83,34 @@ public class StuffAdapter {
                 .build());
 
         return GetStuffResponseConverter.from(stuff);
+    }
+
+    public GetStuffResponse fillStuff(FillStuffRequest request) throws InvalidInputException {
+        var stuff = fillStuffUseCase.execute(FillStuffInput.builder()
+                .userId(request.getUserId())
+                .stuffId(request.getStuffId())
+                .fillAmount(request.getAmount())
+                .build());
+
+        return GetStuffResponseConverter.from(stuff);
+    }
+
+    public GetStuffResponse updateStuff(UpdateStuffRequest request) throws InvalidInputException {
+        var stuff = updateStuffUseCase.execute(UpdateStuffInput.builder()
+                        .userId(request.getUserId())
+                        .stuffId(request.getStuffId())
+                        .name(request.getName())
+                        .unit(Unit.of(request.getUnit()))
+                        .build());
+
+        return GetStuffResponseConverter.from(stuff);
+    }
+
+    public DefaultResponse deleteStuff(Long userId, Long stuffId) throws InvalidInputException {
+        var stuff = deleteStuffUseCase.execute(DeleteStuffInput.builder()
+                .userId(userId)
+                .stuffId(stuffId)
+                .build());
+        return DefaultResponse.response(stuff);
     }
 }

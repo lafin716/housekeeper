@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Builder
 @ToString
-public class GetListHouseResponse implements ResponseModel {
+public class GetHouseResponse implements ResponseModel {
 
     private boolean result;
 
@@ -21,7 +21,7 @@ public class GetListHouseResponse implements ResponseModel {
     private String message;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<House> houses;
+    private House house;
 
     @Getter
     @Builder
@@ -37,5 +37,19 @@ public class GetListHouseResponse implements ResponseModel {
         private HouseType type;
 
         private LocalDateTime createdAt;
+    }
+
+    public static GetHouseResponse ok(House house) {
+        return GetHouseResponse.builder()
+                .result(true)
+                .house(house)
+                .build();
+    }
+
+    public static GetHouseResponse fail(String message) {
+        return GetHouseResponse.builder()
+                .result(true)
+                .message(message)
+                .build();
     }
 }
