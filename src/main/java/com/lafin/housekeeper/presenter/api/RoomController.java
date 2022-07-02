@@ -17,7 +17,7 @@ public class RoomController {
 
     private final RoomAdapter adapter;
 
-    @GetMapping("/{page}")
+    @GetMapping("/list/{page}")
     public ResponseEntity<ResponseModel> list(@PathVariable int page,
                                               @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
         adapter.verify(accessToken);

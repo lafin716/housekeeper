@@ -17,7 +17,7 @@ public class HouseController {
 
     private final HouseAdapter houseAdapter;
 
-    @GetMapping("/{page}")
+    @GetMapping("/list/{page}")
     public ResponseEntity<ResponseModel> list(@PathVariable int page,
                                               @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
         houseAdapter.verify(accessToken);

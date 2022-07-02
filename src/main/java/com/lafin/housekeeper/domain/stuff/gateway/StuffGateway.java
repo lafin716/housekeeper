@@ -6,4 +6,6 @@ import com.lafin.housekeeper.shared.contract.domain.gateway.Repository;
 public interface StuffGateway extends Repository<Stuff, Long> {
 
     boolean isDuplicatedStuff(Long userId, Long roomId, String name);
+
+    Stuff findByUserId(Long stuffId, Long userId);
 }

@@ -16,4 +16,10 @@ public class AdviceController {
         var body = new ErrorResponse(exception);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<ResponseModel> except(Exception exception) {
+        var body = new ErrorResponse(exception);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
 }

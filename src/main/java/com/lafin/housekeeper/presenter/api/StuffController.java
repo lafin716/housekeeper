@@ -2,7 +2,9 @@ package com.lafin.housekeeper.presenter.api;
 
 import com.lafin.housekeeper.presenter.api.adapter.StuffAdapter;
 import com.lafin.housekeeper.presenter.api.request.CreateStuffRequest;
+import com.lafin.housekeeper.presenter.api.request.SpendStuffRequest;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
+import com.lafin.housekeeper.shared.contract.presenter.viewmodel.Paging;
 import com.lafin.housekeeper.shared.contract.presenter.viewmodel.ResponseModel;
 import com.lafin.housekeeper.shared.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +18,24 @@ public class StuffController {
 
     private final StuffAdapter adapter;
 
-//    @GetMapping("/{page}")
-//    public ResponseEntity<ResponseModel> list(@PathVariable int page,
-//                                              @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
-//        adapter.verify(accessToken);
-//        var paging = Paging.builder()
-//                .page(page)
-//                .build();
-//        return ResponseUtil.json(adapter.getRooms(paging));
-//    }
+    @GetMapping("/list/{page}")
+    public ResponseEntity<ResponseModel> list(@PathVariable int page,
+                                              @RequestHeader(value = "X-AUTH-TOKEN") String accessToken) throws InvalidInputException {
+        adapter.verify(accessToken);
+        var paging = Paging.builder()
+                .page(page)
+                .build();
+        return ResponseUtil.json(adapter.getStuffs(paging));
+    }
+
+    @PutMapping("/use/{stuffId}")
+    public ResponseEntity<ResponseModel> spend(@PathVariable Long stuffId,
+                                               @RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
+                                               @RequestBody SpendStuffRequest request) throws InvalidInputException {
+        adapter.verify(accessToken);
+        request.setStuffId(stuffId);
+        return ResponseUtil.json(adapter.spendStuff(request));
+    }
 
     @PostMapping("/add")
     public ResponseEntity<ResponseModel> add(@RequestHeader(value = "X-AUTH-TOKEN") String accessToken,
