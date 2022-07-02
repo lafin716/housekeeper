@@ -1,5 +1,7 @@
 package com.lafin.housekeeper.presenter.api.adapter;
 
+import com.lafin.housekeeper.domain.house.usecase.GetHouseUseCase;
+import com.lafin.housekeeper.domain.house.usecase.input.GetHouseInput;
 import com.lafin.housekeeper.domain.room.usecase.CreateRoomUseCase;
 import com.lafin.housekeeper.domain.room.usecase.GetListRoomUseCase;
 import com.lafin.housekeeper.domain.room.usecase.input.CreateRoomInput;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RoomAdapter {
 
+    private final GetHouseUseCase getHouseUseCase;
+
     private final GetListRoomUseCase getListRoomUseCase;
 
     private final CreateRoomUseCase createRoomUseCase;
@@ -33,6 +37,14 @@ public class RoomAdapter {
     }
 
     public CreateRoomResponse addRoom(CreateRoomRequest request) throws InvalidInputException {
+        var house = getHouseUseCase.execute(GetHouseInput.builder()
+                        .userId(request.getUserId())
+                        .houseId(request.getHouseId())
+                        .build());
+        if (!house.isResult()) {
+            return CreateRoomResponse.fail(house.getMessage());
+        }
+
         var addResult = createRoomUseCase.execute(CreateRoomInput.builder()
                         .userId(request.getUserId())
                         .houseId(request.getHouseId())

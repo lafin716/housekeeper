@@ -29,6 +29,7 @@ public class GetListRoomResponseConverter implements ResponseConverter<GetListRo
     private static GetListRoomResponse.Room toRoom(Room room) {
         return GetListRoomResponse.Room.builder()
                 .id(room.getId())
+                .houseId(room.getHouseId())
                 .name(room.getName())
                 .status(room.getStatus())
                 .createdAt(room.getCreatedAt())

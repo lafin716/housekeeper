@@ -2,30 +2,23 @@ package com.lafin.housekeeper.domain.house.usecase.input;
 
 import com.lafin.housekeeper.shared.contract.domain.usecase.Input;
 import com.lafin.housekeeper.shared.contract.domain.usecase.InvalidInputException;
-import com.lafin.housekeeper.shared.type.HouseType;
 import com.lafin.housekeeper.shared.util.NumberUtils;
 import lombok.Builder;
 import lombok.Getter;
-import org.apache.logging.log4j.util.Strings;
-
-import java.util.Objects;
 
 @Getter
 @Builder
-public class CreateHouseInput implements Input {
+public class GetHouseInput implements Input {
 
     private Long userId;
 
-    private String name;
-
-    private HouseType type;
+    private Long houseId;
 
     @Override
     public boolean validate() throws InvalidInputException {
         if (NumberUtils.isNegative(userId)) throw new InvalidInputException("유저 고유번호가 없습니다.");
-        if (Strings.isBlank(name)) throw new InvalidInputException("건물 이름을 입력해주세요.");
-        if (Objects.isNull(type)) throw new InvalidInputException("건물 타입을 선택해주세요.");
-        
+        if (NumberUtils.isNegative(houseId)) throw new InvalidInputException("건물 고유번호가 없습니다.");
+
         return true;
     }
 }

@@ -27,6 +27,8 @@ public class GetListRoomResponse implements ResponseModel {
 
         private Long id;
 
+        private Long houseId;
+
         private String name;
 
         private RoomStatus status;

@@ -23,6 +23,12 @@ public class HouseGatewayAdapter implements HouseGateway {
     }
 
     @Override
+    public House findByUserIdAndHouseId(Long userId, Long houseId) {
+        var entity = houseRepository.findTopByUserIdAndId(userId, houseId);
+        return HouseEntityConverter.to(entity);
+    }
+
+    @Override
     public House findById(Long id) {
         var entity = houseRepository.findById(id);
         return HouseEntityConverter.to(entity.orElse(null));
