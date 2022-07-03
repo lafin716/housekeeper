@@ -28,6 +28,12 @@ public class RoomGatewayAdapter implements RoomGateway {
     }
 
     @Override
+    public boolean isDuplicatedRoom(Long userId, Long houseId, Long roomId, String name) {
+        var room = repository.findTopByUserIdAndHouseIdAndIdNotAndName(userId, houseId, roomId, name);
+        return Objects.nonNull(room);
+    }
+
+    @Override
     public List<Room> findAllByUserId(Long userId, Paging paging) {
         var page = PageRequest.of(paging.getPage() - 1, paging.getBlock());
         return repository.findByUserId(userId, page)

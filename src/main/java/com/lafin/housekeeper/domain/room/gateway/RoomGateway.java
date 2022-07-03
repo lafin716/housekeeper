@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface RoomGateway extends Repository<Room, Long>  {
     boolean isDuplicatedRoom(Long userId, Long houseId, String name);
+    boolean isDuplicatedRoom(Long userId, Long houseId, Long roomId, String name);
     Room findByUserIdAndRoomId(Long userId, Long roomId);
     List<Room> findAllByUserId(Long userId, Paging paging);
     boolean hasStuff(Long userId, Long roomId);

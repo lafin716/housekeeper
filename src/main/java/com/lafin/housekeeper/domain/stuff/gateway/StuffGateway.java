@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface StuffGateway extends Repository<Stuff, Long> {
     boolean isDuplicatedStuff(Long userId, Long roomId, String name);
+    boolean isDuplicatedStuff(Long userId, Long roomId, Long stuffId, String name);
     Stuff findByUserIdAndStuffId(Long userId, Long stuffId);
     List<Stuff> findAllByUserId(Long userId, Paging paging);
 }

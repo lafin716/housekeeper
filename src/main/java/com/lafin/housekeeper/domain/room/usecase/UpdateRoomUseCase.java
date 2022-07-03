@@ -27,7 +27,7 @@ public class UpdateRoomUseCase implements UseCase<UpdateRoomInput, GetRoomOutput
                 return GetRoomOutput.fail("방 정보가 없습니다.");
             }
 
-            var isExists = gateway.isDuplicatedRoom(input.getUserId(), room.getHouseId(), input.getName());
+            var isExists = gateway.isDuplicatedRoom(input.getUserId(), room.getHouseId(), room.getId(), input.getName());
             if (isExists) {
                 return GetRoomOutput.fail("중복된 방 이름입니다.");
             }

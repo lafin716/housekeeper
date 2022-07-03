@@ -26,6 +26,12 @@ public class StuffGatewayAdapter implements StuffGateway {
     }
 
     @Override
+    public boolean isDuplicatedStuff(Long userId, Long roomId, Long stuffId, String name) {
+        var stuff = repository.findTopByUserIdAndRoomIdAndIdNotAndName(userId, roomId, stuffId, name);
+        return Objects.nonNull(stuff);
+    }
+
+    @Override
     public List<Stuff> findAllByUserId(Long userId, Paging paging) {
         var page = PageRequest.of(paging.getPage() - 1, paging.getBlock());
         return repository.findByUserId(userId, page)

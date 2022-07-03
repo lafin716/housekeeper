@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface HouseGateway extends Repository<House, Long> {
     boolean isDuplicatedHouse(Long userId, String name);
+    boolean isDuplicatedHouse(Long userId, Long houseId, String name);
     House findByUserIdAndHouseId(Long userId, Long houseId);
     List<House> findAllByUserId(Long userId, Paging paging);
     boolean hasRooms(Long userId, Long houseId);

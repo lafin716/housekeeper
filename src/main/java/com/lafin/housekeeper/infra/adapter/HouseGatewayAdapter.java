@@ -29,6 +29,12 @@ public class HouseGatewayAdapter implements HouseGateway {
     }
 
     @Override
+    public boolean isDuplicatedHouse(Long userId, Long houseId, String name) {
+        var entity = houseRepository.findTopByUserIdAndIdNotAndName(userId, houseId, name);
+        return Objects.nonNull(entity);
+    }
+
+    @Override
     public House findByUserIdAndHouseId(Long userId, Long houseId) {
         var entity = houseRepository.findTopByUserIdAndId(userId, houseId);
         return HouseEntityConverter.to(entity);

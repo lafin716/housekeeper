@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface StuffRepository extends JpaRepository<StuffEntity, Long> {
-
     StuffEntity findTopByUserIdAndRoomIdAndName(Long userId, Long roomId, String name);
+    StuffEntity findTopByUserIdAndRoomIdAndIdNotAndName(Long userId, Long roomId, Long stuffId, String name);
     StuffEntity findTopByUserIdAndId(Long userId, Long stuffId);
     StuffEntity findTopByUserIdAndRoomId(Long userId, Long roomId);
     List<StuffEntity> findByUserId(Long userId, Pageable paging);

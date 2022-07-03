@@ -28,7 +28,7 @@ public class UpdateHouseUseCase implements UseCase<UpdateHouseInput, GetHouseOut
                 return GetHouseOutput.fail("집 정보가 없습니다.");
             }
 
-            var isExists = houseGateway.isDuplicatedHouse(input.getUserId(), input.getName());
+            var isExists = houseGateway.isDuplicatedHouse(input.getUserId(), house.getId(), input.getName());
             if (isExists) {
                 return GetHouseOutput.fail("중복된 건물 이름입니다.");
             }

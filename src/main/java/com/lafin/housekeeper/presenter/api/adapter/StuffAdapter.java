@@ -5,6 +5,7 @@ import com.lafin.housekeeper.domain.room.usecase.input.GetRoomInput;
 import com.lafin.housekeeper.domain.stuff.usecase.*;
 import com.lafin.housekeeper.domain.stuff.usecase.input.*;
 import com.lafin.housekeeper.presenter.api.request.*;
+import com.lafin.housekeeper.presenter.api.request.convert.UpdateStuffInputConverter;
 import com.lafin.housekeeper.presenter.api.response.CreateRoomResponse;
 import com.lafin.housekeeper.presenter.api.response.GetListStuffResponse;
 import com.lafin.housekeeper.presenter.api.response.GetStuffResponse;
@@ -96,12 +97,7 @@ public class StuffAdapter {
     }
 
     public GetStuffResponse updateStuff(UpdateStuffRequest request) throws InvalidInputException {
-        var stuff = updateStuffUseCase.execute(UpdateStuffInput.builder()
-                        .userId(request.getUserId())
-                        .stuffId(request.getStuffId())
-                        .name(request.getName())
-                        .unit(Unit.of(request.getUnit()))
-                        .build());
+        var stuff = updateStuffUseCase.execute(UpdateStuffInputConverter.to(request));
 
         return GetStuffResponseConverter.from(stuff);
     }

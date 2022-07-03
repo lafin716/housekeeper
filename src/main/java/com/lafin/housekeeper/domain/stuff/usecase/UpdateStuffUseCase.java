@@ -27,7 +27,7 @@ public class UpdateStuffUseCase implements UseCase<UpdateStuffInput, GetStuffOut
                 return GetStuffOutput.fail("물건 정보가 없습니다.");
             }
 
-            var isExists = gateway.isDuplicatedStuff(input.getUserId(), stuff.getRoomId(), input.getName());
+            var isExists = gateway.isDuplicatedStuff(input.getUserId(), stuff.getRoomId(), stuff.getId(), input.getName());
             if (isExists) {
                 return GetStuffOutput.fail("중복된 물건 이름입니다.");
             }
